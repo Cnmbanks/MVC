@@ -1,0 +1,110 @@
+﻿
+
+@model List<HelloMVC.Models.Car>
+
+
+@{
+    ViewBag.Title = "Index";
+    var value = 1000;
+}
+
+<h1>@ViewBag.ChrisCreatedThisValue</h1>
+<h2>Chris changed this, was just Index</h2>
+<p> Hello again! </p>
+
+@{ 
+    value += 1;
+}
+
+
+@{ 
+    var productId = 123;
+
+    <p>Product ID: ACME@(productId)</p>
+}
+
+
+@{
+    var name = "bob";
+    var day = DateTime.Now.DayOfWeek.ToString();
+
+    <p>Whatsup, @name. Today is @day.</p>
+    <p>Whatsup, @name. Aren't @(day)s the best?</p>
+}
+
+
+<p>Value: @value.ToString("C")</p>
+
+@foreach (var car in Model)
+{
+    <p>@car.Id - @car.Make - @car.Model </p>
+}
+
+@* This is a pluralize helper method for grammar*@
+
+@helper pluralizeChildren(int childCount) { 
+
+@(childCount == 1 ? "child" : "children");
+    }
+
+@{ 
+    var childCount = 1;
+
+    <p>I have @childCount @pluralizeChildren(childCount)</p>
+}
+
+@helper pluralize(int amount, string singular, string plural)
+    {
+    @(amount == 1? singular : plural)
+    }
+
+@{ 
+    var crisesCount = 2;
+
+    <p> Mr. President, there @pluralize(crisesCount, "is one crisis", "are " + crisesCount + " crises" ) you must deal with immediately</p>
+}
+
+@* pluralize with conditional statement*@
+
+<p>
+    Mr. President, there 
+
+    @if(crisesCount == 1)
+    {
+        <span>is one crisis</span>
+    }
+
+    else
+    {
+        <span> are @crisesCount crises</span>
+    }
+
+    you must deal with immediately!
+</p>
+
+<p>
+    @{ 
+        var test = false;
+        if(!test)
+        {
+            @* here we dont need to put the html tag around the text wich is Display this*@
+            @:Display this
+
+            <span>
+                Now is the time for all good men
+                to come to the aid of their
+                country.
+            </span>
+        }
+    }
+</p>
+
+@for (int i = 0; i < 10; i++)
+{
+
+    <p>@i</p>
+}
+    
+<p> bob@learnvisualstudio.net</p>
+
+<p>@@bobmetry</p>
